@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% block titulo %}
+    Su Carrito De Compras
+{% endblock titulo %}
+
+{% load static %}
+
+{% block contenido %}
+
+<!-- sector del menu -->
+    <h2>Carrito de Compras</h2>
+    <table border="1">
+        <tr>
+            <td>Titulo</td><td>Cantidad</td><td>Precio</td>
+        </tr>
+        {%for c in contenido %}
+        <tr>
+            <td>{{c}}</td> <td> {{c}}</td> <td>{{c}}</td>
+        </tr>
+        {%endfor%}
+
+{% endblock contenido %}

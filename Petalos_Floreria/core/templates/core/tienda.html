@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+{% load static%}
+{% block contenido %}
+<div class="container">
+    <h2>LISTADO DE FLORES</h2>
+    {% for f in flores %}
+    <div class="flor">
+        <h3>{{f.nombre}}</h3>
+        {% if f.imagen %}
+        <img src="{{f.imagen.url}}" width="100" height="100">
+        {% endif %}
+        <p>
+            {{f.descripcion}}
+        </p>
+        <p>
+            {{f.valor}}
+        </p>
+        <div>Agregar a Carro</div>
+        <a href="{% url 'AGREGARCARRITO' f.nombre %}">Agregar Flor al Carro</a>
+    </div>
+    {% endfor %}
+    <hr>
+    <h1>{{msg}}</h1>
+</div>
+
+{% endblock contenido %}

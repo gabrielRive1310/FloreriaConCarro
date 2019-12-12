@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Florería Pétalos</title>
+    <!--Bootstrap 4-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <!--Hola de Estilos-->
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+
+<body style="background-color:  rgb(255, 238, 238);">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(255, 238, 238);">
+            <a class="navbar-brand">
+                <img src="{% static 'core/img/logo_floreria.png' %}" width="150" height="50">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'contacto' %}">Contactanos</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'tienda' %}">Tienda</a>
+                    </li>
+                    <li class="=nav-item active">
+                        <a class="nav-link" href="{% url 'CARRITO' %}">Carrito de Compras</a>
+                    </li>
+                    <li class="=nav-item active">
+                        <a class="nav-link" href="{% url 'VACIARCARRITO' %}">Vaciar Carro de Compras</a>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                    <span class="navbar-text">
+                        <a>Usuario: {{ user.username }}</a>
+                    </span>
+                    <span class="nav-link">
+                        <a href="{% url 'logout' %}" style="text-decoration: none;">Cerrar Sesion</a>
+                    </span>
+                {% else %}
+                    <span class="nav-link">
+                        <a href="{% url 'login' %}" style="text-decoration: none;">Iniciar Sesión</a>
+                    </span>
+                    <span class="nav-link">
+                        <a href="{% url 'registro_usuario' %}" style="text-decoration: none;">Registrarse</a>
+                    </span>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    
+    <div id="principal">
+        {% block contenido %}
+        {% endblock contenido %}
+    </div>
+
+    
+</body>
+
+</html>

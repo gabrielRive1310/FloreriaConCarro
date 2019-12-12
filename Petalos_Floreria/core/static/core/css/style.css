@@ -1,0 +1,60 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    font-size: 130%;
+}
+.ibody{
+    width: 500px;
+    background-color: cornsilk;
+    margin: 30px auto;
+}
+
+label{
+    margin-top: 5px;
+}
+
+.jumbotron{
+    padding: 16px;
+}
+
+.jumbotron h1{
+    font-size: 50px;
+    text-align: center;
+}
+
+.fcontacto{
+    padding: 14px;
+}
+
+textarea{
+    margin: 14px;
+}
+
+.flor {
+    background-color: rgb(253, 182, 182);
+    width: 250px;
+    float: left;
+    border-radius: 2em;
+    padding: 25px;
+    text-align: center;
+    margin: 15px;
+}
+.flor img{
+    width: 150px;
+    height: 200px;
+}
+.flor img:hover{
+    filter: brightness(0.6);
+}
+.flor p{
+    font-size: 18px;
+    text-align: justify;
+}
+.flor img:hover ~ div{
+    background-color: black;padding: 6px;border-radius: 2em;color: white;
+}
