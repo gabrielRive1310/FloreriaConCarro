@@ -11,8 +11,10 @@ import datetime
 
 # Creación de las VIEWS
 
+
 def home(request): #Render del Home
     return render(request, 'core/home.html')
+
 
 def contacto(request):
     return render(request, 'core/contacto.html')
@@ -23,18 +25,17 @@ def login(request):
         password=request.POST.get("txtPass")
         us=authenticate(request,username=usuario,password=password)
         msg=''
-        request.session["carrito"] = []        
-        request.session["carritox"] = []        
+        request.session["carrito"] = []              
         print('realizado')
         if us is not None and us.is_active:
             login_autent(request,us)#autentificacion de login            
-            return render(request,'core/home.html')
+            return render(request,'core/index.html')
         else:
-            return render(request,'core/login.html')
+            return render(request,'registration/login.html')
 
     return render(request,'registration/login.html')
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login')
 def tienda(request):
     flores = Flor.objects.all()
     return render(request, 'core/tienda.html', {'flores':flores})
@@ -55,8 +56,19 @@ def registro_usuario(request):
             return redirect(to='home') #Redirige al Login
     return render(request, 'registration/registro.html', data)
 
+def login_acceso(request):
+    if request.POST:
+        usuario=request.POST.get("txtUsuario")
+        password=request.POST.get("txtPass")
+        us=authenticate(request,username=usuario,password=password)
+        msg=''
+        if us is not None and us.is_active:
+            login_autent(request,us)#autentificacion de login
+            return render(request,'core/index.html')
+        else:
+            return render(request,'registration/login.html')
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login')
 def grabar_carro(request):
     x=request.session["carritox"]    
     usuario=request.user.username
@@ -84,7 +96,7 @@ def grabar_carro(request):
         mensaje="error al grabar"            
     return render(request,'core/carrito.html',{'x':x,'total':suma,'mensaje':mensaje})
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login')
 def carro_compras(request,id):
     f=Flor.objects.get(nombre=id)
     x=request.session["carritox"]
@@ -107,7 +119,7 @@ def carro_compras(request,id):
     flores=Flor.objects.all()    
     return render(request,'core/tienda.html',{'flores':flores,'total':suma})
     
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login')
 def carros(request):
     x=request.session["carritox"]
     suma=0
@@ -115,7 +127,7 @@ def carros(request):
         suma=suma+int(item["total"])           
     return render(request,'core/carrito.html',{'x':x,'total':suma})
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login')
 def carro_compras_mas(request,id):
     f=Flor.objects.get(nombre=id)
     x=request.session["carritox"]
@@ -133,7 +145,7 @@ def carro_compras_mas(request,id):
     x=request.session["carritox"]        
     return render(request,'core/carrito.html',{'x':x,'total':suma})
 
-@login_required(login_url='/login/')
+@login_required(login_url='/accounts/login')
 def carro_compras_menos(request,id):
     f=Flor.objects.get(nombre=id)
     x=request.session["carritox"]
@@ -163,22 +175,25 @@ def agregar_carrito(request, id):
     for f in arr:
         flor=f.split(":")
         if flor[0]==id:
-            cant=flor[1]+1
+            cant=flor[1]
 
     #sesion "carrito"que muestra el 
     #titulo de nuestra flor
-    lista=lista+";"+str(id)+str(":")+str(cant)
+    lista=lista+";"+str(id)+str(" ")
+    
 
     request.session["carrito"]=lista
     flores = Flor.objects.all()
     return render(request,"core/tienda.html",{'msg':'agrego','flores':flores})
 
+@login_required(login_url='/accounts/login')
 def carrito(request):
     lista=request.session.get("carrito","")
     #transformar el listado de peliculas en un arreglin
     arreglo=lista.split(";")
     return render(request, 'core/carrito.html',{'contenido':arreglo})
 
+@login_required(login_url='/accounts/login')
 def vaciar_carrito(request):
     request.session["carrito"]=""
     lista=request.session.get("carrrito","")

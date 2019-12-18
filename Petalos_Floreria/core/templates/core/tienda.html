@@ -12,10 +12,15 @@
         <p>
             {{f.descripcion}}
         </p>
-        <p>
-            {{f.valor}}
-        </p>
-        <div>Agregar a Carro</div>
+        <center>
+            ${{f.valor}}
+        </center>
+        <center>
+            {{f.estado}}
+        </center>
+        <center>
+            Stock: {{f.stock}} Unidades
+        </center>
         <a href="{% url 'AGREGARCARRITO' f.nombre %}">Agregar Flor al Carro</a>
     </div>
     {% endfor %}
